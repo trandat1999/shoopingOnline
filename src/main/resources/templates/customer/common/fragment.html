@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Shop Homepage</title>
+
+	<!-- Bootstrap core CSS -->
+
+	<link rel="stylesheet" th:href="@{/login/css/bootstrap.css}">
+
+	<!-- Custom styles for this template -->
+	<link th:href="@{/customer/css/shop-homepage.css}" rel="stylesheet">
+</head>
+
+<body>
+	<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" th:href="@{/home}">Nuclear Shop</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link" th:href="@{/home}">Home
+							<span class="sr-only">(current)</span>
+						</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Services</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+					</li>
+					<li th:if="${account}" class="nav-item"><a class="nav-link" th:href="@{/cart}">Cart</a>
+					</li>
+					<li class="nav-item" th:if="${account}"><a class="nav-link" href="#" th:text="${account}"></a></li>
+					<li class="nav-item" th:if="${account}"><a class="nav-link" th:href="@{/logout}"
+							th:text="logout"></a></li>
+					<li class="nav-item" th:unless="${account}"><a class="nav-link" th:href="@{/login}"
+							th:text="login"></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div th:fragment="menu" class="col-lg-2">
+
+		<h1 class="my-4">Nuclear Shop</h1>
+		<div class="list-group">
+			<a th:each="cate:${listcate}" href="#" class="list-group-item">[[${cate.nameCate}]]</a> 
+			<button th:if="${#lists.size(listcate)>3}" onclick="loadMore()">More</button>
+		</div>
+
+	</div>
+</body>
+<script th:fragment="button_more">
+	let listGroupElement = document.getElementsByClassName('list-group')[0];
+	let index = 0;
+	let itemPerLine = 3;
+	let listItemElements = listGroupElement.getElementsByClassName('list-group-item');
+	let loadBtn = listGroupElement.getElementsByTagName('button')[0];
+	
+	function loadMore(){
+		if(!loadBtn) return;
+		if( (index * itemPerLine) / listItemElements.length >= 1) { // hide
+			loadBtn.textContent = "More";
+			render(0);
+			index = 1;
+			return ;	
+		}
+		render(index); //Render
+		index++;
+		if( (index * itemPerLine) / listItemElements.length >= 1) { // When show all
+			loadBtn.textContent = "Hide";	
+		}
+		
+	}
+	const render = (index) => {
+		for(let i = 0; i < listItemElements.length; i++){
+			if(index * itemPerLine + 3 > i) {
+				listItemElements[i].style.display = "block";
+			} else {
+				listItemElements[i].style.display = "none";
+			}
+		}
+		
+	};
+	loadMore();
+</script>	
+
+</html>

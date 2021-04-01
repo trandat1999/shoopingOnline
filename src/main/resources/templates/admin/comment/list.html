@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/common/menu::html_head">
+</head>
+<body id="page-top">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<ul th:replace="admin/common/menu:: menu"></ul>
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+			<!-- Main Content -->
+			<div id="content">
+				<!-- Topbar -->
+				<nav th:replace="admin/common/menu:: search"></nav>
+				<!-- End of Topbar -->
+				<!--content-->
+				<div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td scope="row"></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div th:replace="admin/common/menu::pagination"></div>
+				<!--content-->
+			</div>
+			<!-- End of Main Content -->
+			<!-- Footer -->
+			<footer th:replace="admin/common/menu::footer"></footer>
+			<!-- End of Footer -->
+		</div>
+	</div>
+	<!-- Logout Modal-->
+	<div th:replace="admin/common/menu::option_user"></div>
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+</body>
+</html>

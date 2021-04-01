@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="customer/common/fragment::head">
+
+</head>
+
+<body>
+
+	<div class="body-wrapper">
+		<!-- Navigation -->
+		<nav th:replace="customer/common/fragment::nav"></nav>
+
+		<!-- Page Content -->	
+		<div class="container ">
+
+			<div class="row">
+
+				<div th:replace="customer/common/fragment::menu"></div>
+				<!-- /.col-lg-3 -->
+
+				<div class="col-lg-9">
+
+					<div class="row my-4">
+						<div th:if="${#lists.isEmpty(listItem)}">
+							<div class="alert alert-warning">Not found item</div>
+						</div>
+	
+						<div class="col-lg-4 col-md-6 mb-4" th:each="item:${listItem}">
+							<div class="card h-100">
+								<a href="#"><img class=" mt-3 card-img-top"
+									th:src="@{/image/{id}(id=${item.id})}" alt=""></a>
+								<div class="card-body">
+									<h4 style="text-transform: capitalize;" class="card-title">
+										<a th:href="@{'/home/item/'+${item.name}}" th:text="${item.name}"></a>
+									</h4>
+									<h5 th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} +' vnđ'"></h5>
+									<p class="card-text" th:text="${item.description}"></p>
+								</div>
+								<div class="card-footer d-flex justify-content-around">
+									<a name="" id="" class="btn btn-primary" th:href="@{'/home/item/'+${item.name}}" role="button">View item</a>
+									<a name="" id=""  class="btn btn-primary" th:href="@{/cart/addtocart/{id}(id=${item.id})}" role="button">Add to cart</a>
+								</div>
+							</div>
+						</div>
+	
+	
+	
+					</div>
+					<div th:if="${totalsPage > 1}" class="d-flex justify-content-center">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination">
+								<li th:if="${currentPage>1}" class="page-item"><a
+									class="page-link"
+									th:href="@{'/home/page/' + ${currentPage -1 }}">Previous</a></li>
+								<li th:unless="${currentPage>1}" class="page-item disabled"><a
+									class="page-link">Previous</a></li>
+								<li th:each="i: ${#numbers.sequence(1, totalsPage)}"
+									class="page-item"><a th:if="${currentPage != i}"
+									class="page-link" th:href="@{'/home/page/' + ${i}}">[[${i}]]</a>
+									<span class="page-link disabled" style="color: black"
+									th:unless="${currentPage != i}">[[${i}]]</span></li>
+								<li th:if="${currentPage < totalsPage}" class="page-item"><a
+									class="page-link"
+									th:href="@{'/home/page/' + ${currentPage + 1}}">Next</a></li>
+								<li th:unless="${currentPage < totalsPage}" class="page-item disabled"><a
+									class="page-link">Next</a></li>
+								<li th:unless="${currentPage < totalsPage}" class="page-item disabled"><a
+									class="page-link">Last</a></li>
+								<li th:if="${currentPage < totalsPage}" class="page-item"><a
+									class="page-link" th:href="@{'/home/page/' + ${totalsPage}}">Last</a></li>
+							</ul>
+						</nav>
+					</div>
+					<!-- /.row -->
+	
+				</div>
+				<!-- /.col-lg-9 -->
+	
+			</div>
+			<!-- /.row -->
+	
+		</div>
+		<!-- /.container -->
+		
+	<!-- Footer -->
+	<footer s class="py-4 bg-dark">
+		<div >
+			<p class="m-0 text-center text-white">Copyright &copy; Your
+				Website 2020</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+	</div>
+	
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{/customer/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/customer/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+<script th:replace="customer/common/fragment::button_more">
+</script>	
+
+</html>

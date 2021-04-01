@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/common/menu :: html_head"></head>
+
+<body id="page-top">
+	<div id="wrapper">
+		<!--replace menu-->
+		<ul th:replace="admin/common/menu :: menu"></ul>
+		<!--replace menu-->
+		<div id="content-wrapper" class="d-flex flex-column">
+			<div id="content">
+				<!--replace search-->
+				<nav th:replace="admin/common/menu :: search"></nav>
+				<!--replace search-->
+				<div class="table table-responsive d-flex justify-content-center">
+					<table class="table-hover table table-bordered ">
+						<thead class="thead-Info">
+							<tr>
+								<th>id</th>
+								<th>name</th>
+								<th>description</th>
+								<th>price (vnd)</th>
+								<th>picture</th>
+								<th>category</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="item: ${listItem}">
+								<td scope="row"> [[${item.id}]]</td>
+								<td>[[${item.name}]]</td>
+								<td>[[${item.description}]]</td>
+								<td>[[${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} +' vnđ']]</td>
+								<td><img th:src="@{/image/{id}(id=${item.id})}" style="height: 75px; width: 75px;" /></td>
+								<td th:unless="${item.categoryModel !=null}">null</td>
+								<td th:if="${item.categoryModel !=null}" th:text="${item.categoryModel.nameCate}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div th:replace="admin/common/menu::pagination"></div>
+			</div>
+
+			<footer th:replace="admin/common/menu:: footer"></footer>
+		</div>
+	</div>
+	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
+	</a>
+	<!--replace option_user-->
+	<div th:replace="admin/common/menu::option_user"></div>
+	<!--replace option_user-->
+	<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+</body>
+
+</html>

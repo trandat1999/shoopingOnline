@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/common/menu::html_head"></head>
+
+<body id="page-top">
+
+	<div id="wrapper">
+		<!--replace menu-->
+		<ul th:replace="admin/common/menu :: menu"></ul>
+		<!--replace menu-->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+				<!--replace search-->
+				<nav th:replace="admin/common/menu :: search"></nav>
+				<!--replace search-->
+				<div th:if="${err}">
+					<div class="alert alert-warning" th:text="item was exits"></div>
+				</div>
+				<div class="align-items-center">
+					<form th:object="${item}" method="POST" enctype="multipart/form-data">
+						<table class="table justify-content-center">
+							<thead>
+								<tr>
+									<th>Attribute</th>
+									<th>Values</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>name</td>
+									<td><input type="text" th:field="*{name}" required /></td>
+								</tr>
+								<tr>
+									<td>Category</td>
+									<td><select th:name="category">
+											<option th:each="category :${listCategory}" th:value="${category.id}"
+												th:text="${category.nameCate}">
+											</option>
+										</select></td>
+								</tr>
+								<tr>
+									<td>Description</td>
+									<td><input type="text" th:field="*{description}" required /></td>
+								</tr>
+								<tr>
+									<td>price</td>
+									<td><input type="number" th:field="*{price}" required /></td>
+								</tr>
+								<tr>
+									<td>picture</td>
+									<td><input type="file" multiple th:name="file"  required /></td>
+								</tr>
+							</tbody>
+							
+						</table>
+						<button type="submit" class="btn btn-primary d-flex justify-content-center">Submit</button>
+					</form>
+				</div>
+			</div>
+			<footer th:replace="admin/common/menu:: footer"></footer>
+		</div>
+	</div>
+	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
+	</a>
+	<div th:replace="admin/common/menu :: option_user" ></div>
+	<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+</body>
+
+</html>

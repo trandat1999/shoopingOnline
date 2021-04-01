@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/login/fonts/material-icon/css/material-design-iconic-font.min.css}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/login/css/style.css}">
+</head>
+
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <div th:if="${err}">
+                            <div class="alert alert-warning" th:text="${err}"></div>
+                        </div>
+                        <form method="POST" action="/signup" class="register-form" id="register-form"
+                            th:object="${account}">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input required="required" type="text" th:field="*{username}" name="username"
+                                    placeholder="Username" />
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input required="required" th:field="*{password}" type="password" name="password"
+                                    id="password" placeholder="Password" />
+                            </div>
+                            <div class="form-group">
+                                <label for="fullName"><i class="zmdi zmdi-nature-people"></i></label>
+                                <input type="text" th:field="*{fullName}" required="required" name="fullName"
+                                    id="fullName" placeholder="FullName" />
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" th:field="*{email}" required="required" name="email" id="email"
+                                    placeholder="Your Email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber"><i class="zmdi zmdi-smartphone"></i></label>
+                                <input type="number" th:field="*{phoneNumber}" required="required" name="phoneNumber"
+                                    id="phoneNumber" placeholder="PhoneNumber" />
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" required="required" name="agree-term" id="agree-term"
+                                    class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
+                                    statements in <a href="#" class="term-service">Terms of service</a></label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img th:src="@{login/images/signup-image.jpg}" alt="sing up image"></figure>
+                        <a th:href="@{login}" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JS -->
+    <script th:src="@{/login/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/login/js/main.js}"></script>
+</body>
+
+</html>

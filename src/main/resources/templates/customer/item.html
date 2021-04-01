@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Shop Item - Start Bootstrap Template</title>
+
+	<link th:href="@{/customer/item/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/login/css/bootstrap.css}">
+
+	<!-- Custom styles for this template -->
+	<link th:href="@{/customer/css/shop-homepage.css}" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav th:replace="customer/common/fragment::nav"></nav>
+
+	<!-- Page Content -->
+	<div class="container mb-3" >
+
+		<div class="row">
+
+			<div th:replace="customer/common/fragment::menu"></div>
+			<!-- /.col-lg-3 -->
+
+			<div class="col-lg-9">
+
+				<div class="card mt-4">
+					<img class="w-90 ml-auto mr-auto mt-3 mb card-img-top img-fluid" th:src="@{/image/{id}(id=${item.id})}" alt="">
+					<div class="card-body">
+						<h2 style ="text-transform: capitalize;" class="card-title" th:text="${item.name}"></h2>
+						<h4 class="font" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} +' vnđ'"></h4>
+						<p class="card-text" th:text="${item.description}"></p>
+						<span class="text-warning">&#9733; &#9733; &#9733; &#9733;
+							&#9734;</span> 4.0 stars
+					</div>
+					<a th:href="@{/cart/addtocart/{id}(id=${item.id})}" class=" w-25 ml-auto mr-auto mb-2 btn btn-success">Add to cart </a>
+				</div>
+				
+				<!-- /.card -->
+
+				<div class="card card-outline-secondary my-4">
+					<div class="card-header">Product Reviews</div>
+					<div class="card-body">
+						<div th:each="comment: ${item.commentModels}">
+							<p th:text="${comment.details}"></p>
+							<small class="text-muted">Posted by <b>[[${comment.accountModel.fullName}]]</b> at
+								<b>[[${#calendars.format(comment.createdDate, 'dd/MMM/yyyy HH:mm:ss')}]]</b></small>
+							<hr>
+						</div>
+					</div>
+
+
+					<form th:action="@{/comment/post/{id}(id=${item.id})}" method="POST">
+						<div class="form-group d-flex justify-content-around flex-direction-row">
+							<input class="form-control w-75" placeholder="Comment . . . . ." type="text" th:name="comment">
+							<button type="submit" class="btn btn-primary">Comment</button>
+						</div>
+					</form>
+				</div>
+				<div>
+
+					<a onclick="goBack()" class="w-25 mt-3 btn btn-success">Back</a> <br>
+				</div>
+				<!-- /.card -->
+
+			</div>
+			<!-- /.col-lg-9 -->
+
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<footer class="py-4 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your
+				Website 2020</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script th:src="@{/customer/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/customer/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script type="text/javascript">
+		function goBack() {
+			window.history.back();
+		}
+	</script>
+
+</body>
+
+</html>
